@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'thankyoupage.dart'; // Ensure this path is correct
+import 'Admin/Admin-panel.dart';
+import 'thankyoupage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,11 +19,18 @@ class _LoginPageState extends State<LoginPage> {
       final email = _emailController.text;
       final password = _passwordController.text;
 
-      // Basic authentication logic (replace with your own)
-      if (email == 'user@example.com' && password == 'password123') {
+      // Simple authentication logic (replace with your own)
+      if (email == 'admin@example.com' && password == 'password123') {
+        // Navigate to Admin Panel if the user is an admin
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) =>  ThankYouPage()),
+          MaterialPageRoute(builder: (context) => AdminPanel()),
+        );
+      } else if (email == 'user@example.com' && password == 'user123') {
+        // Navigate to Thank You page if the user is a regular user
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ThankYouPage()),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -107,18 +115,13 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     elevation: 5,
                   ),
-                  onPressed: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ThankYouPage()));
-                  },
+                  onPressed: () => _login(context),
                   child: const Text(
                     'Login',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
-
                   ),
                 ),
                 const SizedBox(height: 20),
